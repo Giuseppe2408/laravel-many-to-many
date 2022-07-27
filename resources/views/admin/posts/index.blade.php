@@ -7,6 +7,7 @@
                 <th>Id</th>
                 <th>Slug</th>
                 <th>Title</th>
+                <th>Category</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +16,7 @@
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->slug }}</td>
                     <td>{{ $post->title }}</td>
+                    <td>{{ $post->category->name }}</td>
                     <td>
                         <a href="{{ route('admin.posts.show', ['post' => $post]) }}" class="btn btn-primary">View</a>
                     </td>
@@ -30,8 +32,11 @@
                         </form>
                     </td> --}}
                 </tr>
+
+                
             @endforeach
         </tbody>
     </table>
+    {{$posts->links()}}
 @endsection
 
