@@ -4,14 +4,21 @@
     use Illuminate\Support\Str;
 
     trait Slugger{
-        public function getSlug($str_origin) {
-            $slugOrigin = Str::slug($str_origin) . '';
+        
+        static public function getSlug($strOrigin) {
+            $slugOrigin = Str::slug($strOrigin) . '';
             $slug = $slugOrigin;
+    
             $i = 1;
-            while (self::where('slug', $slug)->first()) {
+            while (self::where(self::slugColumnName(), $slug)->first()) {
                 $slug = $slugOrigin . '-' . $i;
                 $i++;
-            } 
+            }
+    
             return $slug;
+        }
+    
+        private static function slugColumnName() {
+            return 'slug';
         }
     };

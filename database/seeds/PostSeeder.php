@@ -19,7 +19,7 @@ class PostSeeder extends Seeder
         for ($i=0; $i < 150; $i++) { 
             $post = new Post;
             $post->title = $faker->words(rand(3, 10), true);
-            // $post->slug = Post::getSlug($post->title);
+            $post->slug = Post::getSlug($post->title);
             $post->category_id = $faker->randomElement($categories_ids);
             $post->image = 'https://picsum.photos/id/' . rand(1, 800) . '/200/300';
             $post->content = $faker->paragraphs(rand(2,10), true);

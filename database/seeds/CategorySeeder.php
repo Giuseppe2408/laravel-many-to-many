@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
 
         foreach($categories as $category) {
             Category::create([
-                // 'slug'          => Category::getSlug($category),
+                'slug'          => Category::getSlug($category),
                 'name'          => $category,
                 'description'   => $faker->paragraphs(rand(2, 10), true),
             ]);

@@ -15,4 +15,3 @@ class Post extends Model
     }
 }
 
-// Post::getSlug('ciao a tutti');
