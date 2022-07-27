@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -49,7 +52,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -60,8 +63,15 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        // if (Auth::id() != $post->user_id) abort(401);
+        $categories = Category::all();
+
+        return view('admin.posts.edit', [
+            'post'          => $post,
+            'categories'    => $categories,
+        ]);
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -72,8 +82,17 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        // richiesta al db di tutti i dati
+        $data = $request->all();
+
+        // comando per aggiornare con i nuovi dati il db
+        $post->update($data);
+        
+        // redirect sullo show dopo aver editato il post
+        return redirect()->route('admin.posts.show', ['post' => $post]);
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
